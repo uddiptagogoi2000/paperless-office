@@ -1,0 +1,58 @@
+<div class="container my-10">
+    <div class="bg-bar rounded-lg h-20 p-6 flex items-center justify-between content-center text-white">
+        <!-- Modal toggle -->
+
+        <div>6 New Applications</div>
+
+        <div>
+            <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                class="text-white w-full bg-gradient-to-tr from-theme1 to-theme2 hover:theme1 focus:ring-2 focus:outline-none focus:theme1 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between focus:ring-theme1"
+                type="button">
+                Sort By
+                <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown"
+                class="hidden z-10 w-21 bg-white rounded divide-y divide-gray-100 shadow bg-gradient-to-tr from-theme1 to-theme2"
+                data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom"
+                style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 206.4px, 0px);">
+                <ul class="py-1 text-sm text-thembg-[#02295a] text-gray-200" aria-labelledby="dropdownDefault">
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-themebackground hover:text-white">Date</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-themebackground hover:text-white">Type</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 px-4 hover:bg-themebackground hover:text-white">Alphabets</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div><button
+                class=" px-5 py-2.5 text-sm font-medium rounded-lg bg-gradient-to-tr from-theme1 to-theme2 hover:bg-white"><a
+                    href="#">Accept All</a></button></div>
+
+
+    </div>
+    <% for (let application of applications) { %>
+    <div class="mt-10">
+
+        <div class="bg-white rounded-lg h-20 my-4 p-6 flex items-center justify-between content-center">
+            <div class="text-black font-bold text-xs md:text-sm bg-lightGray p-2 rounded"><a
+                    href="/applications/<%= application._id %>"><%= application._id %></a></div>
+            <div class="text-gray-600 text-sm lg:text-lg"><%= application.author %></div>
+
+            <div class="text-gray-600 text-sm lg:text-lg"><%= application.createdAt %></div>
+
+            <div class="text-gray-600 text-sm lg:text-lg"><%= application.type %></div>
+        </div>
+    </div>
+    <% } %>
+
+
+</div>

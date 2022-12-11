@@ -1,0 +1,34 @@
+
+<h1>Add a Form</h1>
+<form action="/forms" method="POST">
+  <label for="firstName">Enter Firstname</label>
+  <input
+    type="text"
+    name="firstName"
+    id="firstName"
+    placeholder="First Name"
+  />
+  <label for="lastName">Enter Lastname</label>
+  <input
+    type="text"
+    name="lastName"
+    id="lastName"
+    placeholder="Last Name"
+  />
+  <select name="category" id="">
+    <option value="leave">leave</option>
+    <option value="withdraw">withdraw</option>
+    <option value="internship">internship</option>
+  </select>
+  <label for="message">Enter your message</label>
+  <textarea
+    class="input"
+    name="message"
+    id="message"
+    cols="30"
+    rows="5"
+    placeholder="e.g.; Nice meeting you!!!"
+  ></textarea>
+  <button type="submit">Submit</button>
+</form>
+

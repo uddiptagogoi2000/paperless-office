@@ -1,0 +1,173 @@
+<div class="bg-lightGray h-full">
+    <div class="container w-2/3 py-14">
+        <div class="p-5 md:p-10 flex justify-start">
+            <img class="h-6" src="/img/icons/previous.png" href="#" alt="hello">
+            <a href="/applications" class="mx-3">Go Back</a>
+        </div>
+        <% for (let forward of application.forwards) { %>
+        <% for (let to of forward.forwardedTo) { %>
+        <% if (to._id.equals(currentUser._id)) { %>
+        <h3><%= 'Forwarded By: ' + forward.forwardedBy.email %> </h3>
+        <% break %>
+        <% } %>
+        <% } %>
+        <% } %>
+        <div class="bg-bar rounded-lg p-4 lg:p-6  text-white">
+            <div class="flex flex-col lg:flex-row justify-between">
+                <div class="bg-themebackground flex justify-between font-bold items-center px-4 rounded-lg text-theme1">
+                    id : <%= application._id %>
+                </div>
+
+                <% if (currentUser._id.equals(application.author._id)) { %>
+                <div class="flex justify-center items-center">
+                    <button
+                        class=" px-2 py-1 lg:px-6 md:text-lg w-full lg:py-3 rounded-xl bg-gradient-to-tr from-theme1 to-theme2 hover:bg-white">
+                        <a href="#">
+                            ReApply
+                        </a>
+                    </button>
+                </div>
+
+                <% } %>
+
+                <% if (application.status === 'in-progress' && application.to.some(user => user.equals(currentUser._id))) { %>
+                <div>
+                    <form action="/applications/<%= application._id %>?_method=PATCH" method="POST">
+                        <input type="text" value="approved" name="status" hidden>
+                        <button type="submit"
+                            class=" px-2 py-1 lg:px-6 md:text-lg w-full lg:py-3 rounded-xl bg-[#55c7dc] hover:bg-white">
+                            Approve
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <form action="/applications/<%= application._id %>?_method=PATCH" method="POST">
+                        <input type="text" value="declined" name="status" hidden>
+                        <button
+                            class=" px-2 py-1 lg:px-6 md:text-lg w-full lg:py-3 rounded-xl bg-red-600 hover:bg-white">
+                            Decline
+                        </button>
+                    </form>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="mt-8 rounded-lg ">
+            <div class="flex flex-col">
+                <% if (userRole == "Faculty") { %>
+                <div class="flex items-center justify-between md:text-lg my-4 lg:my-1">
+                    Submitted By : <%= application.author.username %></div>
+                <% } %>
+                <input type="text" value="approved" name="status" hidden>
+                <% if (application.status === 'in-progress' && application.to.some(user => user.equals(currentUser._id))) { %>
+
+                <div class="self-end">
+                    <a href="/applications/<%= application._id %>/forward">
+                        <button type="submit"
+                            class=" px-2 py-1 lg:px-6 md:text-lg lg:py-3 rounded-xl bg-[#55c7dc] hover:bg-white ">
+                            Forward To
+                        </button>
+                    </a>
+                </div>
+                <% } %>
+                <% if (application.forwards.some(forward => currentUser._id.equals(forward.forwardedBy._id))) { %>
+                <h3>Forwarded to</h3>
+                <ul>
+                    <% for (let forward of application.forwards) { %>
+                    <% if (currentUser._id.equals(forward.forwardedBy._id)) { %>
+                    <% for (let user of forward.forwardedTo) { %>
+                    <li><%=  `${user.username}(${user.email})` %> </li>
+                    <% } %>
+                    <% break; %>
+                    <% } %>
+                    <% } %>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="subject">
+            TO
+        </label>
+        <select name="application[to]" id="to" class="text-white w-1/4 mb-4 bg-gradient-to-tr from-theme1 to-theme2 hover:bg-lightGray hover:text-black focus:ring-2 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-around dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">
+            <option value="none" selected disabled hidden class="block py-4 px-4 hover:bg-purple-300 hover:text-white" selected disabled hidden>Select an option</option>
+            <option value="" class="block py-4 px-4 hover:bg-purple-300 hover:text-white">gfyefeyfydu</option>                    
+        </select> -->
+        <div class="my-8">
+            <div class="bg-white rounded-lg my-4 p-6 ">
+                <!-- <div class="flex items-center justify-between content-center my-4">
+                    <div class="text-gray-500 text-sm md:text-lg">From Date : 14 Nov 2022</div>
+                    <div class="text-gray-500 text-sm md:text-lg">Too Date : 18 Nov 2022</div>
+                </div> -->
+                <div class="font-bold">
+                    Subject : <%= application.subject %>
+                </div>
+                <div class=" my-4 bg-lightGray p-4 rounded-lg">
+                    <%= application.description %>
+                </div>
+                <!-- ******* only the receiver can see this -->
+
+
+                <div>
+                    <span class="font-bold">Sent To :</span> <span
+                        class="p-2 bg-lightGray rounded-lg ml-3"><%= application.to.username %></span>
+                </div>
+            </div>
+            <div class="">
+                <% if (application.to.some(user => user.equals(currentUser._id))) { %>
+                <div class="bg-white rounded-lg p-4 ">
+                    <h3>Leave a Review</h3>
+                    <form action="/applications/<%= application._id %>/reviews" method="POST">
+                        <div class=" flex flex-col mt-4">
+                            <div class="">
+                                <textarea
+                                    class="resize-y w-full appearance-none bg-lightGray text-gray-700 border border-purple-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-theme1"
+                                    name="review[body]" id="review" cols="30" rows="3">
+                                    </textarea>
+                            </div>
+                            <div class="mx-4 self-end">
+                                <button
+                                    class="text-white px-2 py-1 lg:px-4 md:text-lg lg:py-2 rounded-lg bg-gradient-to-tr from-theme1 to-theme2 hover:bg-white"
+                                    type="submit">
+                                    Add Comment
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <% } %>
+
+            </div>
+
+            <div class="bg-white rounded-lg my-4 p-6">
+                <div class="font-bold">
+                    4 Comments
+                </div>
+                <% for (let review of application.reviews) { %>
+                <div class="flex my-5 justify-around">
+                    <div class="w-1/12"><img class="h-10" src="/img/icons/profile.png" alt="">
+                    </div>
+                    <div class="w-11/12">
+                        <div class=" font-bold"><%= review.author.username %></div>
+                        <div class=""><%= review.author.email %></div>
+                        <div class="py-6 text-gray-500">
+                            <p><%= review.body %></p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+            </div>
+            <div class="bg-bar rounded-lg h-20 p-2 lg:p-6 flex items-center justify-between content-center text-white">
+
+                <div class="">
+
+                    <div class="">Application Status : <span
+                            class="bg-themebackground mx-4 font-bold px-3 py-2 rounded-lg text-theme1">
+                            <%= application.status %></span> </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

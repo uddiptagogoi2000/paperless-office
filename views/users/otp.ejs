@@ -1,0 +1,77 @@
+<section class="h-full gradient-form bg-gray-200 md:h-screen">
+  <div class="container py-10 px-4 h-full">
+    <div class="relative ml-5 w-4/6 rounded-lg">
+      <%- include('../partials/flash') %>
+    </div>
+    <div class="flex justify-center items-center flex-wrap h-full g-6 text-white">
+      <div class="xl:w-7/12">
+        <div class="block bg-white shadow-lg rounded-lg">
+          <div class="lg:flex lg:flex-wrap g-0">
+            <div class="lg:w-6/12 p-8 md:px-0 flex justify-center items-center">
+              <div class="md:p-10 md:mx-6">
+                <!-- <div class="text-center">
+                  <img
+                    class="mx-auto w-44"
+                    src="/img/icons/tulogo.png"
+                    alt="logo"
+                  />
+                  <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">Tezpur University</h4>
+                </div> -->
+                <form action="/getotp" method="POST" >
+                  <div class="mb-4">
+                    <input
+                      type="email"
+                      class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      name="email"
+                      placeholder="Tezu Mail Id"
+                      required
+                    />
+                  </div>
+                  <div class="text-center pt-1  pb-1">
+                    <button
+                      class="inline-block bg-gradient-to-tr from-theme1 to-theme2 px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full"
+                      type="submit"
+                      
+                    >
+                      Send OTP
+                    </button>
+                    <!-- <a class="text-gray-500" href="#!">Forgot password?</a> -->
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+            <div
+              class="lg:w-6/12 bg-gradient-to-tr from-theme1 to-theme2 lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none flex flex-col justify-center items-center"
+             
+            >
+              <div class="py-6 md:p-12 md:m-4 text-white ">
+                <form action="/otp" method="POST">
+                  <div class="mb-4">
+                    <input
+                      type="text"
+                      class="form-control block w-full xl:px-16 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      name="otp" id="exampleFormControlInput1"
+                      placeholder="Enter the recieved OTP"
+                      required
+                    />
+                  </div>
+            
+                  <div class="text-center pt-1 pb-1">
+                    <button
+                    class="z-4 appearance-none bg-[hsl(213.41,95.65%,18.04%)] px-6 py-2.5 text-white font-bold text-xs leading-tight uppercase rounded shadow-md focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full"
+                    type="submit"
+                   
+                  >
+                    Submit
+                  </button>
+                  </div>
+                 </form>
+                   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

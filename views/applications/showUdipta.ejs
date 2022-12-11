@@ -1,0 +1,33 @@
+<h1><%= application._id %> </h1>
+<div>
+  <h2><%= application.type %> - <%= application.status %></h2>
+  <h3>Submitted by <%= application.author.username %></h3>
+  <p><%= application.description %></p>
+</div>
+<p>
+<form action="/applications/<%=  application._id %>?_method=DELETE" method="POST">
+  <button>Delete</button>
+</form>
+</p>
+<div>
+  <h3>Leave a Review</h3>
+  <form action="/applications/<%= application._id %>/reviews" method="POST">
+    <label for="body">Review</label>
+    <textarea name="review[body]" id="review" cols="30" rows="3"></textarea>
+    <button type="submit">Send</button>
+  </form>
+  <% for (let review of application.reviews) { %>
+  <div class="card">
+    <!-- <h4>By <%= %> </h4> -->
+    <p><%= review.body %></p>
+    <% if (currentUser && review.author.equals(currentUser._id)) { %>
+    <form action="/applications/<%= application._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+      <button type="submit" style="background-color: red;">Delete</button>
+    </form>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+<footer>
+  <a href="/applications">All Applications</a>
+</footer>

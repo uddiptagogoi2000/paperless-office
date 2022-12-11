@@ -1,0 +1,13 @@
+<h1>Forward to</h1>
+<form action="/applications/<%= application._id %>?_method=PUT" method="POST">
+  <select name="application[to]" id="to"
+    class="text-white w-1/4 mb-4 bg-gradient-to-tr from-theme1 to-theme2 hover:bg-lightGray hover:text-black focus:ring-2 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-around dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-blue-800">
+    <option value="none" selected disabled hidden class="block py-4 px-4 hover:bg-purple-300 hover:text-white" selected
+      disabled hidden>Select an option</option>
+    <% for (let faculty of facultyDetails) { %>
+    <option value="<%= faculty.userId %>" class="block py-4 px-4 hover:bg-purple-300 hover:text-white">
+      <%= faculty.username %></option><%= faculty.username %></option>
+    <% } %>
+  </select>
+  <button type="submit" class="px-3 py-2">Send</button>
+</form>

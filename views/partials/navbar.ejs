@@ -1,0 +1,11 @@
+<nav style="display: flex; justify-content: space-between">
+  <h4 style="display: inline-block;">Best looking navbar!!!</h4>
+  <div>
+    <% if(!currentUser) { %>
+    <a href="/register" style="margin-right: 30px;">Register</a>
+    <a href="/login" style="margin-right: 30px;">Login</a>
+    <% } else { %>
+    <a href="/logout">Logout</a>
+    <% } %>
+  </div>
+</nav>

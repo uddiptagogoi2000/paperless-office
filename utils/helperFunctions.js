@@ -1,0 +1,1 @@
+module.exports.createUsername = email => email.slice(0, email.indexOf('@'));

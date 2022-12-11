@@ -1,0 +1,12 @@
+
+    <h1>All Forms</h1>
+    <ul>
+      <% for (let form of forms) { %>
+      <li>
+        <a href="/forms/<%= form._id %>"
+          ><%=`${form.firstName} ${form.lastName}`%>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+ 

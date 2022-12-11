@@ -1,0 +1,206 @@
+<div class="bg-lightGray h-screen">
+    <div class="container  px-2 py-14 md:p-14">
+        <div class="relative ml-5 w-4/6 rounded-lg">
+            <%- include('../partials/flash') %>
+        </div>
+        <div class="flex flex-col lg:flex-row gap-2 lg:gap-8 p-6">
+            <!-- left portion -->
+            <div class="left h-48 w-full md:basis-2/6 rounded-lg">
+                <div class="rounded-lg p-4 mb-6 h-40 text-white bg-index-bg bg-no-repeat bg-cover">
+                    <div class="flex justify-between">
+                        <h3 class="mb-4 text-xl font-medium ">
+                            <%= currentUser.username %>
+                        </h3>
+                        <button
+                            class="px-4 py-1 font-semibold tracking-wider rounded-lg bg-[hsl(213.41,95.65%,18.04%)]"><a
+                                href="/logout">Logout</a></button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-4 my-6 flex flex-wrap hidden lg:flex">
+                    <div class="py-3 px-5 bg-lightGray rounded-lg m-4 ">
+                        <h1 class="bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">All</h1>
+                    </div>
+                    <div class="py-3 px-5 bg-lightGray rounded-lg m-4">
+                        <h1 class="bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">Granted
+                            Application</h1>
+                    </div>
+                    <div class="py-3 px-5 bg-lightGray rounded-lg m-4">
+                        <h1 class="bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">Failed
+                            Application</h1>
+                    </div>
+                    <div class="py-3 px-5 bg-lightGray rounded-lg m-4">
+                        <h1 class="bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">Cancelled</h1>
+                    </div>
+                    <div class="py-3 px-5 bg-lightGray rounded-lg m-4">
+                        <h1 class="bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">Commented</h1>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-4 my-6 hidden">
+                    aperiam architecto expedita, inventore dolorum voluptas nisi iste obcaecati omnis repudiandae
+                    magnam.
+                </div>
+
+            </div>
+            <!-- right portion -->
+            <div class="right w-full md:basis-4/6">
+                <div class="bg-bar rounded-lg h-20 p-6 flex items-center justify-between content-center text-white">
+                    <!-- Modal toggle -->
+                    <!-- <div>
+                      <button class="" type="button" data-modal-toggle="profile-modal">
+                          <img src="/img/icons/profile.png" class="h-6 md:h-10" alt="">
+                      </button>
+                  </div> -->
+                    <!-- Main modal -->
+                    <!-- <div id="profile-modal" data-modal-placement="bottom-right" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+                          <div class="relative p-4 w-full max-w-md h-full md:h-auto"> -->
+                    <!-- Modal content -->
+                    <!-- <div class="relative bg-white rounded-lg shadow dark:bg-purple-200">
+                                  <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-purple-800 dark:hover:text-white" data-modal-toggle="profile-modal">
+                                      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                      <span class="sr-only">Close modal</span>
+                                  </button>
+                                  <div class="py-6 px-6 lg:px-8">
+                                      <h3 class="mb-5 text-xl font-medium bg-gradient-to-tr from-theme1 to-theme2 bg-clip-text text-transparent">Rahna Harlalka</h3>
+                                      <span class="p-2 my-5 bg-themebackground text-black rounded-lg ">CSM21005</span>
+                                      <span class="p-2 my-5 bg-themebackground text-black rounded-lg ">3rd sem</span>
+                                      <span class="p-2 my-5 bg-themebackground text-black rounded-lg ">MCA</span>
+                                      <button class="px-2 py-1 my-5 rounded-lg bg-red-500">Change Password</button>
+                                      <button class="px-2 py-1 my-5 rounded-lg bg-red-500"><a href="/logout">Logout</a></button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>  -->
+                    <div>
+                        <button id="dropdownDefaultprofile" data-dropdown-toggle="dropdownprofile" class=""
+                            type="button">
+                            <img src="/img/icons/profile.png" class="h-6 md:h-12" alt="">
+
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdownprofile"
+                            class="hidden z-10 w-21 rounded-lg shadow bg-gradient-to-tr from-theme1 to-theme2"
+                            data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom"
+                            style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 206.4px, 0px);">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultprofile">
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">
+                                        <%= currentUser.username %>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">Change
+                                        Password</a>
+                                </li>
+                                <li>
+                                    <a href="/logout"
+                                        class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">LogOut</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <% if (userRole==='Faculty' ) { %>
+                        <div>
+                            <button data-tooltip-target="tooltip-default" type="button">
+                                <a href="/faculty/applications"><img src="/img/icons/resume.png"
+                                        class="h-6 md:h-11" alt=""></a>
+                            </button>
+                            <div id="tooltip-default" role="tooltip"
+                                class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                                Show All Applications
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <div>6 Suggestions</div>
+
+                            <div>
+                                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                                    class="text-white w-full bg-gradient-to-tr from-theme1 to-theme2 hover:bg-purple-800 focus:ring-2 focus:outline-none focus:ring-themebackground font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center justify-between dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+                                    type="button">
+                                    Sort By
+                                    <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdown"
+                                    class="hidden z-10 w-21 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gradient-to-tr from-theme1 to-theme2"
+                                    data-popper-reference-hidden="" data-popper-escaped=""
+                                    data-popper-placement="bottom"
+                                    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 206.4px, 0px);">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownDefault">
+                                        <li>
+                                            <a href="#"
+                                                class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">Date</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">Type</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block py-2 px-4 dark:hover:bg-themebackground dark:hover:text-white">Alphabets</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="/applications/new">
+                                    <button
+                                        class=" px-5 py-2 text-sm lg:text-lg lg:px-10 lg:py-4 rounded-lg bg-gradient-to-tr from-theme1 to-theme2 hover:bg-white">
+
+                                        Apply
+
+                                    </button>
+                                </a>
+                            </div>
+
+
+                </div>
+                <% if (applications.length>0){ %>
+                    <% for (let application of applications) { %>
+                        <div class="mt-10">
+                            <div
+                                class="bg-white rounded-lg h-20 my-4 p-6 flex items-center justify-between content-center">
+                                <div class="text-black font-bold text-xs md:text-sm"><a
+                                        href="/applications/<%= application._id %>">
+                                        <%= application._id %>
+                                    </a></div>
+                                <div class="text-gray-600 text-sm ">
+                                    <%= application.createdAt %>
+                                </div>
+                                <div class="text-gray-600 text-sm ">
+                                    <%= application.type %>
+                                </div>
+                                <div
+                                    class="py-3 px-2 md:px-5 bg-lightYellow rounded-lg m-4 text-yellow font-bold text-xs md:text-sm">
+                                    <span class="inline-block bg-yellow rounded-full w-2 h-2 mr-1"></span>
+                                    <%= application.status %>
+                                </div>
+                                <!-- <div class="hidden md:flex"><a href="#"><img src="/img/icons/comments.png" alt=""
+                                            width="28"></a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } else { %>
+                                <div class="flex flex-col justify-center items-center h-full">
+                                    <img src="/img/icons/no-content.png" alt="" width="200px">
+                                    <h2 class="text-2xl font-bold mt-2">No Application</h2>
+                                    </h3>
+                                </div>
+                                <% } %>
+
+
+            </div>
+
+        </div>
+    </div>
