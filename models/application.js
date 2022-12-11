@@ -7,11 +7,30 @@ const ApplicationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'ApplicationType'
   },
-  status: {
-    type: String,
-    enum: ['in-progress', 'approved', 'declined', 'forwared'],
-    default: 'in-progress'
-  },
+  status: [
+    {
+      statusType:
+      {
+        type: String,
+        enum: ['approved', 'declined', 'forwarded']
+      },
+      author: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }]
+    }
+  ],
+  statusModifiers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  // status: {
+  //   type: String,
+  //   enum: ['in-progress', 'approved', 'declined', 'forwared'],
+  //   default: 'in-progress'
+  // },
   subject: {
     type: String,
     uppercase: true

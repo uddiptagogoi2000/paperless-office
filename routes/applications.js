@@ -7,6 +7,17 @@ const User = require('../models/user');
 const Faculty = require('../models/users/faculty');
 const { isLoggedIn, isAuthor, isReceiver, isAuthorAndReceiver, validateApplication } = require('../middleware.js');
 
+const isNotModifier = async (req, res, next) => {
+  const { id } = req.params;
+  const application = await Application.findById(id);
+  if (application.statusModifiers.some(user => user._id.equals(req.user._id))) {
+    // means you have already modified
+    req.flash('error', `you donot have the permission to do that`);
+    return res.redirect(`/applications/${application._id}`);
+  }
+  next();
+}
+
 router.get('/', isLoggedIn, async (req, res) => {
   const applications = await Application.find({ author: req.user._id });
   res.render('applications/index', { applications })
@@ -59,8 +70,12 @@ router.get('/:id', isLoggedIn, isAuthorAndReceiver, async (req, res) => {
     populate: {
       path: 'forwardedTo'
     }
+  }).populate({
+    path: 'status',
+    populate: {
+      path: 'author'
+    }
   });
-  console.log(application);
   if (!application) {
     req.flash('error', 'cannot find that application');
     return res.redirect('/applications');
@@ -68,9 +83,28 @@ router.get('/:id', isLoggedIn, isAuthorAndReceiver, async (req, res) => {
   res.render('applications/show', { application })
 })
 
-router.patch('/:id', isLoggedIn, isReceiver, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, isReceiver, isNotModifier, catchAsync(async (req, res) => {
   const { id } = req.params;
-  const application = await Application.findByIdAndUpdate(id, { status: req.body.status });
+  const { status } = req.body;
+  const application = await Application.findById(id);
+  const idxOfStatus = application.status.indexOf(doc => doc.statusType === status);
+  if (idxOfStatus !== -1) {
+    application.status[idxOfStatus].author.push(req.user._id);
+    application.statusModifiers.push(req.user._id);
+    await application.save();
+    return res.redirect(`/applications/${application._id}`)
+  }
+  const obj = {
+    statusType: null,
+    author: [],
+  };
+  obj.statusType = status;
+  obj.author.push(req.user._id)
+
+  application.status.push(obj);
+
+  application.statusModifiers.push(req.user._id);
+  await application.save();
   res.redirect(`/applications/${application._id}`)
 }))
 
@@ -99,10 +133,12 @@ router.get('/:id/forward', isLoggedIn, isReceiver, catchAsync(async (req, res) =
 }))
 
 router.put('/:id', isLoggedIn, isReceiver, catchAsync(async (req, res) => {
+  console.log('hello')
   const { id } = req.params;
   const { to } = req.body.application;
   const application = await Application.findById(id).populate('to');
   if (!application.to.some(receiver => receiver._id.equals(to._id))) {
+    console.log('world');
     application.to.push(to);
   }
 

@@ -30,9 +30,9 @@
 
                 <% } %>
 
-                <% if (application.status === 'in-progress' && application.to.some(user => user.equals(currentUser._id))) { %>
+                <% if (!application.statusModifiers.includes(currentUser._id) &&  application.to.some(user => user.equals(currentUser._id))) { %>
                 <div>
-                    <form action="/applications/<%= application._id %>?_method=PATCH" method="POST">
+                    <form action="/applications/<%= application._id %>?_method=PUT" method="POST">
                         <input type="text" value="approved" name="status" hidden>
                         <button type="submit"
                             class=" px-2 py-1 lg:px-6 md:text-lg w-full lg:py-3 rounded-xl bg-[#55c7dc] hover:bg-white">
@@ -41,7 +41,7 @@
                     </form>
                 </div>
                 <div>
-                    <form action="/applications/<%= application._id %>?_method=PATCH" method="POST">
+                    <form action="/applications/<%= application._id %>?_method=PUT" method="POST">
                         <input type="text" value="declined" name="status" hidden>
                         <button
                             class=" px-2 py-1 lg:px-6 md:text-lg w-full lg:py-3 rounded-xl bg-red-600 hover:bg-white">
@@ -59,8 +59,7 @@
                     Submitted By : <%= application.author.username %></div>
                 <% } %>
                 <input type="text" value="approved" name="status" hidden>
-                <% if (application.status === 'in-progress' && application.to.some(user => user.equals(currentUser._id))) { %>
-
+                <% if (/*application.status === 'in-progress' && */ application.to.some(user => user.equals(currentUser._id))) { %>
                 <div class="self-end">
                     <a href="/applications/<%= application._id %>/forward">
                         <button type="submit"
@@ -160,14 +159,15 @@
 
             </div>
             <div class="bg-bar rounded-lg h-20 p-2 lg:p-6 flex items-center justify-between content-center text-white">
-
                 <div class="">
-
-                    <div class="">Application Status : <span
-                            class="bg-themebackground mx-4 font-bold px-3 py-2 rounded-lg text-theme1">
-                            <%= application.status %></span> </div>
+                    <div class="">Application Status :
+                        <!-- <span
+                            class="bg-themebackground mx-4 font-bold px-3 py-2 rounded-lg text-theme1"><%=// application.status %></span> -->
+                        <% for (let stat of application.status) { %>
+                        <p><%= `${stat.statusType} by ${stat.author}, ` %> </p>
+                        <% } %>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
