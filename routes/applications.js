@@ -132,13 +132,11 @@ router.get('/:id/forward', isLoggedIn, isReceiver, catchAsync(async (req, res) =
   res.render('applications/forward', { facultyDetails, application });
 }))
 
-router.put('/:id', isLoggedIn, isReceiver, catchAsync(async (req, res) => {
-  console.log('hello')
+router.put('/:id/forward', isLoggedIn, isReceiver, catchAsync(async (req, res) => {
   const { id } = req.params;
   const { to } = req.body.application;
   const application = await Application.findById(id).populate('to');
   if (!application.to.some(receiver => receiver._id.equals(to._id))) {
-    console.log('world');
     application.to.push(to);
   }
 
