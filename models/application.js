@@ -12,7 +12,7 @@ const ApplicationSchema = new Schema({
       statusType:
       {
         type: String,
-        enum: ['approved', 'declined', 'forwarded']
+        enum: ['approved', 'declined', 'forwarded'],
       },
       author: [{
         type: Schema.Types.ObjectId,

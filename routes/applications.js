@@ -88,6 +88,7 @@ router.put('/:id', isLoggedIn, isReceiver, isNotModifier, catchAsync(async (req,
   const { status } = req.body;
   const application = await Application.findById(id);
   const idxOfStatus = application.status.indexOf(doc => doc.statusType === status);
+  console.log(`idx: ${idxOfStatus}`)
   if (idxOfStatus !== -1) {
     application.status[idxOfStatus].author.push(req.user._id);
     application.statusModifiers.push(req.user._id);
@@ -95,10 +96,10 @@ router.put('/:id', isLoggedIn, isReceiver, isNotModifier, catchAsync(async (req,
     return res.redirect(`/applications/${application._id}`)
   }
   const obj = {
-    statusType: null,
+    statusType: status,
     author: [],
   };
-  obj.statusType = status;
+  // obj.statusType = status;
   obj.author.push(req.user._id)
 
   application.status.push(obj);

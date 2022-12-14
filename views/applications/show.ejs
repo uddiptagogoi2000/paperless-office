@@ -158,13 +158,17 @@
                 <% } %>
 
             </div>
-            <div class="bg-bar rounded-lg h-20 p-2 lg:p-6 flex items-center justify-between content-center text-white">
+            <div
+                class="bg-bar rounded-lg min-h-20 p-2 lg:p-6 flex items-center justify-between content-center text-white">
                 <div class="">
                     <div class="">Application Status :
                         <!-- <span
                             class="bg-themebackground mx-4 font-bold px-3 py-2 rounded-lg text-theme1"><%=// application.status %></span> -->
                         <% for (let stat of application.status) { %>
-                        <p><%= `${stat.statusType} by ${stat.author}, ` %> </p>
+                        <p><%= `${stat.statusType} by - ` %> </p>
+                        <% for (let author of stat.author) { %>
+                        <p> <%= author.username %> </p>
+                        <% } %>
                         <% } %>
                     </div>
                 </div>
